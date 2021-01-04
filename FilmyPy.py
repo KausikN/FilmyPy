@@ -15,11 +15,20 @@ def GetMovieInfosets():
 
 def GetMovieDataFields(mov_id='0133093'):
     movieData = imdb.get_movie(mov_id)
-    return list(movieData.keys())
+    return list(sorted(movieData.keys()))
 
 def GetMovieSubDataFields(mov_id='0133093', sub_key='directors'):
     movieData = imdb.get_movie(mov_id)
-    return list(movieData[sub_key].keys())
+    return list(sorted(movieData[sub_key].keys()))
+
+def GetMovieData(mov_id):
+    return imdb.get_movie(mov_id)
+
+def GetNames(movieData):
+    if 'akas' in movieData.keys():
+        return movieData['akas']
+    elif 'original title' in movieData.keys():
+        return movieData['original title']
 
 def GetDirectors(mov_id='0133093'):
     movieData = imdb.get_movie(mov_id) # '0133093'
@@ -30,12 +39,17 @@ def GetDirectors(mov_id='0133093'):
 
 # Driver Code
 # Params
-movie_id = '0133093'
+movie_id = '1112093'
 subField = 'directors'
 # Params
 
 # RunCode
 # print(GetMovieInfosets())
-print(GetMovieDataFields(movie_id))
+# print(GetMovieDataFields(movie_id))
 # print(GetMovieSubDataFields(movie_id, subField))
 # print(GetDirectors(movie_id))
+
+movieData = GetMovieData(movie_id)
+print(list(movieData.keys()))
+print(GetNames(movieData))
+print(movieData['directors'])
