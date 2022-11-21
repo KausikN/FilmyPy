@@ -1,0 +1,61 @@
+{
+    "name": "FilmyPy",
+    "repoLink": "https://github.com/KausikN/FilmyPy",
+    "localPath": "E:/Github Codes and Projects/Projects/FilmyPy",
+    "modules": {
+        "app.py": {
+            "name": "app",
+            "type": "local",
+            "link": "https://github.com/KausikN/FilmyPy/blob/master/app.py",
+            "parentDir": "E:/Github Codes and Projects/Projects/FilmyPy",
+            "subDir": "",
+            "dependencies": [
+                "os.py",
+                "streamlit.py",
+                "json.py"
+            ]
+        },
+        "FilmyPy.py": {
+            "name": "FilmyPy",
+            "type": "local",
+            "link": "https://github.com/KausikN/FilmyPy/blob/master/FilmyPy.py",
+            "parentDir": "E:/Github Codes and Projects/Projects/FilmyPy",
+            "subDir": "",
+            "dependencies": [
+                "IMDb.py"
+            ]
+        },
+        "os.py": {
+            "name": "os",
+            "type": "missing",
+            "link": "",
+            "parentDir": "",
+            "subDir": "",
+            "dependencies": []
+        },
+        "IMDb.py": {
+            "name": "IMDb",
+            "type": "missing",
+            "link": "",
+            "parentDir": "",
+            "subDir": "",
+            "dependencies": []
+        },
+        "json.py": {
+            "name": "json",
+            "type": "missing",
+            "link": "",
+            "parentDir": "",
+            "subDir": "",
+            "dependencies": []
+        },
+        "streamlit.py": {
+            "name": "streamlit",
+            "type": "missing",
+            "link": "",
+            "parentDir": "",
+            "subDir": "",
+            "dependencies": []
+        }
+    }
+}

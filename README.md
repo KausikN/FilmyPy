@@ -1,2 +1,2 @@
 # FilmyPy
- A Python Visualiser tool for films and movies
+ A Python Visualiser and Documenter tool for films and movies

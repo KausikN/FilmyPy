@@ -1,0 +1,35 @@
+{
+    "": {
+        
+    },
+    "MCU": {
+        "Loki": {
+            "name": "Loki",
+            "seasons": [
+                {
+                    "name": "Loki: Season 1"
+                }
+            ]
+        }
+    },
+    "DCEU": {
+        "Loki": {
+            "name": "Peacemaker",
+            "seasons": [
+                {
+                    "name": "Peacemaker: Season 1"
+                }
+            ]
+        }
+    },
+    "LOTR": {
+        "Rings of Power": {
+            "name": "Rings of Power",
+            "seasons": [
+                {
+                    "name": "Rings of Power: Season 1"
+                }
+            ]
+        }
+    }
+}

@@ -1,0 +1,10 @@
+{
+    "PROJECT_NAME": "FilmyPy",
+    "PROJECT_LINK": "https://github.com/KausikN/FilmyPy",
+
+    "PROJECT_DESC": "A Python Visualiser and Documenter tool for films and movies",
+
+    "PROJECT_README": "README.md",
+
+    "PROJECT_MODES": ["Movie Search", "Movie Logs", "Series Search", "Series Logs"]
+}
