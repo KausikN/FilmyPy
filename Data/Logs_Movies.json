@@ -2,25 +2,29 @@
     "": {
         "Goodfellas": {
             "name": "Goodfellas",
-            "id": "0099685"
+            "id": "0099685",
+            "seen": true
         }
     },
-    "MCU": {
+    "1": {
         "Iron Man 1": {
             "name": "Iron Man",
-            "id": "0371746"
+            "id": "0371746",
+            "seen": true
         }
     },
-    "DCEU": {
+    "2": {
         "Man of Steel": {
             "name": "Man of Steel",
-            "id": "0770828"
+            "id": "0770828",
+            "seen": true
         }
     },
-    "LOTR": {
+    "3": {
         "Lotr1": {
             "name": "Lord of the Rings: The Fellowship of the Ring",
-            "id": "0120737"
+            "id": "0120737",
+            "seen": true
         }
     }
 }

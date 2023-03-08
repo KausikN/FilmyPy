@@ -2,13 +2,13 @@
     "": {
         "name": "Standalone Movies"
     },
-    "MCU": {
+    "1": {
         "name": "Marvel Cinematic Universe"
     },
-    "DCEU": {
+    "2": {
         "name": "DC Extended Universe"
     },
-    "LOTR": {
+    "3": {
         "name": "Lord of the Rings"
     }
 }

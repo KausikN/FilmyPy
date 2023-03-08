@@ -11,8 +11,9 @@
             "subDir": "",
             "dependencies": [
                 "os.py",
+                "json.py",
                 "streamlit.py",
-                "json.py"
+                "*.py"
             ]
         },
         "FilmyPy.py": {
@@ -25,14 +26,6 @@
                 "IMDb.py"
             ]
         },
-        "os.py": {
-            "name": "os",
-            "type": "missing",
-            "link": "",
-            "parentDir": "",
-            "subDir": "",
-            "dependencies": []
-        },
         "IMDb.py": {
             "name": "IMDb",
             "type": "missing",
@@ -41,8 +34,8 @@
             "subDir": "",
             "dependencies": []
         },
-        "json.py": {
-            "name": "json",
+        "*.py": {
+            "name": "*",
             "type": "missing",
             "link": "",
             "parentDir": "",
@@ -51,6 +44,22 @@
         },
         "streamlit.py": {
             "name": "streamlit",
+            "type": "missing",
+            "link": "",
+            "parentDir": "",
+            "subDir": "",
+            "dependencies": []
+        },
+        "os.py": {
+            "name": "os",
+            "type": "missing",
+            "link": "",
+            "parentDir": "",
+            "subDir": "",
+            "dependencies": []
+        },
+        "json.py": {
+            "name": "json",
             "type": "missing",
             "link": "",
             "parentDir": "",

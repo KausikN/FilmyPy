@@ -1,33 +1,34 @@
 {
-    "": {
-        
-    },
-    "MCU": {
+    "": {},
+    "1": {
         "Loki": {
             "name": "Loki",
             "seasons": [
                 {
-                    "name": "Loki: Season 1"
+                    "name": "Loki: Season 1",
+                    "seen": true
                 }
             ]
         }
     },
-    "DCEU": {
+    "2": {
         "Loki": {
             "name": "Peacemaker",
             "seasons": [
                 {
-                    "name": "Peacemaker: Season 1"
+                    "name": "Peacemaker: Season 1",
+                    "seen": true
                 }
             ]
         }
     },
-    "LOTR": {
+    "3": {
         "Rings of Power": {
             "name": "Rings of Power",
             "seasons": [
                 {
-                    "name": "Rings of Power: Season 1"
+                    "name": "Rings of Power: Season 1",
+                    "seen": true
                 }
             ]
         }
