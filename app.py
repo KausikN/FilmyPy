@@ -55,6 +55,9 @@ DATA = {
         "series": {}
     }
 }
+DEFAULT_PATHS = {
+    "missing_poster": "StreamLitGUI/DefaultData/missing_poster.jpg"
+}
 
 # Util Vars
 CACHE = {}
@@ -102,24 +105,34 @@ def CACHEFUNC_SearchMovie(name, n_results):
     
     return SEARCH_RESULTS
 
+@st.cache
+def CACHEFUNC_ExtractLetterboxdList(url):
+    MOVIES_DATA = []
+    try:
+        MOVIES_DATA = Letterboxd_ListURL_ExtractData(url)
+    except Exception as e:
+        MOVIES_DATA = None
+    
+    return MOVIES_DATA
+
 # Main Functions
 def Logs_Load():
     '''
     Logs - Load All Logs Data
     '''
     global DATA
-
-    for logType in DATA["logs"].keys():
-        DATA["logs"][logType] = json.load(open(DATA_PATHS["logs"][logType], "r"))
+    # Load
+    for log_type in DATA["logs"].keys():
+        DATA["logs"][log_type] = json.load(open(DATA_PATHS["logs"][log_type], "r"))
 
 def Logs_Save():
     '''
     Logs - Save All Logs Data
     '''
     global DATA
-
-    for logType in DATA["logs"].keys():
-        json.dump(DATA["logs"][logType], open(DATA_PATHS["logs"][logType], "w"), indent=4)
+    # Save
+    for log_type in DATA["logs"].keys():
+        json.dump(DATA["logs"][log_type], open(DATA_PATHS["logs"][log_type], "w"), indent=4)
 
 # UI Functions
 def UI_DisplayMovie(MOVIE):
@@ -135,14 +148,16 @@ def UI_DisplayMovie(MOVIE):
         "Release Year": MOVIE_IMDB["year"]
     }
     cols = st.columns(2)
-    cols[0].image(MOVIE_IMDB["full-size cover url"])
+    try: cols[0].image(MOVIE_IMDB["full-size cover url"])
+    except Exception as e: cols[0].image(DEFAULT_PATHS["missing_poster"])
     cols[1].markdown("Watched: " + ("✅" if MOVIE_DATA["seen"] else "❌"))
     cols[1].write(INFO_Main)
     # Other Info
     OtherInfo = {
-        
+        **MOVIE_IMDB,
+        **MOVIE_IMDB.__dict__,
     }
-    st.write(OtherInfo)
+    st.json(OtherInfo, expanded=False)
 
 def UI_DisplayMovies(MOVIES):
     for movie in MOVIES:
@@ -216,16 +231,33 @@ def UI_LoadMovie(FRANCHISE_KEY):
         MOVIE_KEY = MOVIE_KEYS[MOVIE_NAMES.index(USERINPUT_MovieName)]
     ## Add
     elif USERINPUT_MovieOp == "Add":
-        USERINPUT_MovieName = st.text_input("Movie Name")
-        if st.button("Add"):
-            ADD_MOVIE_KEY = str(len(MOVIE_KEYS))
-            ### Update Movie Logs
-            DATA["logs"]["movies"][FRANCHISE_KEY][ADD_MOVIE_KEY] = {
-                "name": USERINPUT_MovieName,
-                **DEFAULT_DATA["movie"]
-            }
-            ### Save Logs
-            Logs_Save()
+        USERINPUT_MovieAddType = st.selectbox("Select Movie Input Type", ["Name", "ID"])
+        if USERINPUT_MovieAddType == "Name":
+            USERINPUT_MovieName = st.text_input("Movie Name")
+            MOVIE_IMDB = None if USERINPUT_MovieName == "" else CACHEFUNC_SearchMovie(USERINPUT_MovieName, n_results=1)
+            if MOVIE_IMDB is None or len(MOVIE_IMDB) < 1:
+                MOVIE_IMDB = None
+                st.error("Invalid Movie Name")
+            else:
+                MOVIE_IMDB = MOVIE_IMDB[0]
+        else:
+            USERINPUT_MovieID = st.text_input("Movie ID")
+            MOVIE_IMDB = None if USERINPUT_MovieID == "" else CACHEFUNC_GetMovieFromID(USERINPUT_MovieID)
+            if MOVIE_IMDB is None: st.error("Invalid Movie ID")
+        if MOVIE_IMDB is not None:
+            ### Display Movie to be added
+            UI_DisplayMovie({"imdb": MOVIE_IMDB, "data": {**DEFAULT_DATA["movie"]}})
+            ### Add Movie to logs
+            if st.button("Add"):
+                ADD_MOVIE_KEY = str(len(MOVIE_KEYS))
+                ### Update Movie Logs
+                DATA["logs"]["movies"][FRANCHISE_KEY][ADD_MOVIE_KEY] = {
+                    "name": MOVIE_IMDB["title"],
+                    "id": MOVIE_IMDB.movieID,
+                    **DEFAULT_DATA["movie"]
+                }
+                ### Save Logs
+                Logs_Save()
     ## Remove
     elif USERINPUT_MovieOp == "Remove":
         USERINPUT_MovieName = st.selectbox("Select Movie", MOVIE_NAMES)
@@ -251,7 +283,12 @@ def movie_search():
     # Init
     USERINPUT_MovieName = st.text_input("Movie Name", value="Avengers")
     USERINPUT_NResults = st.number_input("Number of Results", value=2, min_value=1, max_value=10)
-    # Search Movie
+    # Process Check
+    USERINPUT_Process = st.checkbox("Stream Process", value=False)
+    if not USERINPUT_Process: USERINPUT_Process = st.button("Process")
+    if not USERINPUT_Process: st.stop()
+    # Process Inputs
+    ## Search Movie
     SEARCH_RESULTS = CACHEFUNC_SearchMovie(USERINPUT_MovieName, USERINPUT_NResults)
     if SEARCH_RESULTS is None:
         st.error("Error in IMDB Module. Please try again later.")
@@ -313,6 +350,28 @@ def movie_logs():
         Logs_Save()
         st.success("Movie marked as " + ("seen" if DATA["logs"]["movies"][FRANCHISE_KEY][MOVIE_KEY]["seen"] else "not seen") + ".")
         st.experimental_rerun()
+
+def letterboxd_list():
+    # Title
+    st.header("Letterboxd List")
+
+    # Load Inputs
+    USERINPUT_ListURL = st.text_input("List URL")
+
+    # Process Check
+    USERINPUT_Process = st.checkbox("Stream Process", value=False)
+    if not USERINPUT_Process: USERINPUT_Process = st.button("Process")
+    if not USERINPUT_Process: st.stop()
+    # Process Inputs
+    ## Extract Movies Data
+    # MOVIES_DATA = CACHEFUNC_ExtractLetterboxdList(USERINPUT_ListURL)
+    MOVIES_DATA = Letterboxd_ListURL_ExtractData(USERINPUT_ListURL)
+    if MOVIES_DATA is None:
+        st.error("Invalid URL.")
+        return
+    
+    # Display Outputs
+    st.write(MOVIES_DATA)
 
 #############################################################################################################################
 # Driver Code

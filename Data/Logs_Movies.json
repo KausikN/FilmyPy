@@ -11,6 +11,11 @@
             "name": "Iron Man",
             "id": "0371746",
             "seen": true
+        },
+        "1": {
+            "name": "Iron Man 2",
+            "id": "1228705",
+            "seen": false
         }
     },
     "2": {
